@@ -6,5 +6,5 @@
 
 Содержание уроков:
 
-1. **Lesson 1** - Описательные статистики
-2. **Lesson 2** - Проверка распределения на нормальность
+1. [**Lesson 1**](https://github.com/materov/RStudy/tree/master/Lesson%201) - Описательные статистики
+2. [**Lesson 2**](https://github.com/materov/RStudy/tree/master/Lesson%202) - Проверка распределения на нормальность
