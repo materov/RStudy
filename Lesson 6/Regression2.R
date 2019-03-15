@@ -8,6 +8,12 @@ library(ggthemes)
 library(car)
 library(ggsci)
 
+# Время ликвидации открытого горения
+# определение
+#      |
+#      V
+# http://wiki-fire.org/%D0%92%D1%80%D0%B5%D0%BC%D1%8F%20%D0%BB%D0%B8%D0%BA%D0%B2%D0%B8%D0%B4%D0%B0%D1%86%D0%B8%D0%B8%20%D0%BE%D1%82%D0%BA%D1%80%D1%8B%D1%82%D0%BE%D0%B3%D0%BE%20%D0%B3%D0%BE%D1%80%D0%B5%D0%BD%D0%B8%D1%8F.ashx
+
 #data_regr <- read_xlsx("/Users/materov/Git/book/Data/Regression.xlsx")
 data_regr <- read_xlsx("C:/Users/ТТТ/Dropbox/СВ/Пособие Мат методы (адъюнктура)/Data/Regression.xlsx")
 
@@ -34,12 +40,12 @@ data_regr %>%
   ggplot(aes(ликвидация, тушение)) + 
   geom_density2d(aes(color = ..level.., alpha = ..level..)) + 
   geom_rug(color = "gray70", sides = "tr") + # geom_smooth(method = "lm", se = F) +
-  scale_color_gradient(low = "green", high = "red") +
+  #scale_color_gradient(low = "green", high = "red") +
   geom_point() +  
   labs(title    = "Данные по временам оперативного реагирования на пожары, \nпроизошедшие в городской местности",
        subtitle = "в субъектах РФ в целом за 12 мес. 2016 г.",
        caption  = "\nпо данным ФГБУ ВНИИПО МЧС России"
-  ) + xlab("\nСреднее время ликвидации открытого горения, мин.") + 
+  ) + xlab("\nСреднее время локализации открытого горения, мин.") + 
   ylab("Среднее время тушения, мин.\n") +
   guides(color="none", alpha="none") +
   theme_ridges()
@@ -69,7 +75,7 @@ data_regr %>%
   theme_ridges()
 
 # модель
-FireModel <- data_regr %>% lm(formula = тушение~ликвидация)
+FireModel <- data_regr %>% lm(formula = тушение ~ ликвидация)
 
 # информация по модели
 summary(FireModel)
@@ -88,11 +94,11 @@ BIC(FireModel)
 
 # прогноз
 predict(FireModel)
-newdata = data.frame( ликвидация=20 )
+newdata = data.frame(ликвидация = 30)
+predict(FireModel, newdata)
 
 # отображение всех стандартных графиков
 plot(FireModel)
-
 abline(FireModel)
 
 # выбросы

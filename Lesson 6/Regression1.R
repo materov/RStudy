@@ -28,4 +28,4 @@ ggplot(data = df, aes(x = x, y = y)) +
   ggtitle("Пример регрессионной прямой\n")
 
 # описание линейной модели
-summary(lm(y~x))
+summary(lm(y ~ x))
