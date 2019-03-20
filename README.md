@@ -12,3 +12,4 @@
 4. [**Урок 4**](https://github.com/materov/RStudy/tree/master/Lesson%204) - Введение в ggplot2
 5. [**Урок 5**](https://github.com/materov/RStudy/tree/master/Lesson%205) - Корреляции
 6. [**Урок 6**](https://github.com/materov/RStudy/tree/master/Lesson%206) - Регрессия
+7. [**Урок 7**](https://github.com/materov/RStudy/tree/master/Lesson%207) - Множественная регрессия
