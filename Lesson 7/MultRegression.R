@@ -54,12 +54,15 @@ cor(data_regr[,1:3])
 data_regr[,1:3] %>%
   GGally::ggpairs()
 
+library(GGally)
+
 # парные графики
 data_regr[,1:4] %>%
   ggpairs(aes(color = ФО,
               alpha = 0.6)) 
 
 model = lm(data = data_regr, T_тушения ~ T_локализации + T_ликв_горения)
+summary(model)
 
 
 library(broom)
