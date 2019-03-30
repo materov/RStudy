@@ -11,11 +11,11 @@ my_path <- "C:/Users/ТТТ/Dropbox/RGit/RStudy/Lesson 8/"
 
 # имя файла
 read_file <- "data_2016 WinEncoding.csv"
-# data_2016 WinEncoding.csv ???
 
 # чтение данных из CSV
 df <- read.csv(my_path %s+% read_file)
 
+# типы данных
 df     %<>% as_tibble()
 df$F6  %<>% as.Date()
 df$F11 %<>% as.factor()
@@ -100,8 +100,10 @@ df %>%
   facet_wrap(Hac~.)
   NULL
 
+# использование интерактивной графики в Plotly
 plotly::ggplotly(plot)
 
+# диаграммы размаха
 df %>%
   filter(F201 == 0) %>%
   group_by(F6, F11) %>%
@@ -115,6 +117,7 @@ df %>%
 ###############
 library(xts)
 
+# определение временного ряда как XTS-объекта
 fire_ts <-
   xts::xts(x = data$n_pozh, order.by = data$F6)
 
@@ -136,9 +139,11 @@ library(forecast)
 # вывод преобразованного ряда
 plot(BoxCox(fire_ts, lambda))
 
+# лаги
 library(astsa)
 lag1.plot(fire_ts, 4)
 
+# проверка на стационарность
 library(tseries)
 adf.test(fire_ts, alternative = "stationary")
 
