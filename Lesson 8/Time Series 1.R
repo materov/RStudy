@@ -5,12 +5,12 @@ library(tidyverse)
 # оператор pipe
 library(magrittr)
 
-my_path <- "/Users/materov/Git/MLProject/"
+#my_path <- "/Users/materov/Git/MLProject/"
 # путь в Windows
-# my_path <- "C:/Users/ТТТ/Dropbox/СВ/MachineLearning/"
+my_path <- "C:/Users/ТТТ/Dropbox/RGit/RStudy/Lesson 8/"
 
 # имя файла
-read_file <- "WorkingData/data_2016.csv"
+read_file <- "data_2016 WinEncoding.csv"
 # data_2016 WinEncoding.csv ???
 
 # чтение данных из CSV
@@ -24,6 +24,15 @@ df$F11 %<>% as.factor()
 df %>%
   group_by(F6) %>%
   summarise(n_pozh = n())
+
+# пример фильтрации
+df %>%
+  filter(F201 == 1) %>%
+  filter(F11 %in% c("Сельский населенный пункт")) %>%
+  filter(F2 %in% c("Рыбинский район")) %>%
+  group_by(F33) %>%
+  summarise(kol = n()) %>%
+  arrange(desc(kol))
 
 # график количества пожаров
 df %>%
@@ -42,6 +51,7 @@ df %>%
 data <- 
   df %>%
   filter(F201 == 1) %>%
+  filter(F11 %in% c("Город", "Населенный пункт городского типа")) %>%
   group_by(F6) %>%
   summarise(n_pozh = n()) 
 
@@ -73,7 +83,7 @@ df %>%
   group_by(F6, F11) %>%
   summarise(n_pozh = n()) %>%
   filter(n_pozh > 5) %>%
-  rename("Дата" = F6, "Количество" = n_pozh, Hac = F11) %>%
+  rename("Дата" = F6, Количество = n_pozh, Hac = F11) %>%
   ggplot(., aes(x = Дата, y = Количество, color = Hac)) + 
   geom_point(size = 2, alpha = 0.8) +
   labs(
@@ -85,10 +95,20 @@ df %>%
   #ggridges::theme_ridges() +
   theme_minimal() +
   ggsci::scale_color_nejm() +
-  theme(legend.position = "top") +
+  theme(legend.position = "bottom") +
+  #guides(color = guide_legend(ncol = 2)) +
   facet_wrap(Hac~.)
+  NULL
 
 plotly::ggplotly(plot)
+
+df %>%
+  filter(F201 == 0) %>%
+  group_by(F6, F11) %>%
+  summarise(n_pozh = n()) %>%
+  ggplot(., aes(x = fct_reorder(F11, n_pozh), y = n_pozh, fill = F11)) + geom_boxplot() +
+  coord_flip()
+  
 
 ###############
 # временной ряд
@@ -121,3 +141,6 @@ lag1.plot(fire_ts, 4)
 
 library(tseries)
 adf.test(fire_ts, alternative = "stationary")
+
+acf(fire_ts)
+auto.arima(fire_ts)
