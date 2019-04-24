@@ -1,0 +1,75 @@
+---
+title: "Пример отчета в RMarkdown"
+output:
+  html_document: default
+---
+
+
+```{r setup, include=FALSE}
+# установочный блок, содержащий библиотеки и данные
+knitr::opts_chunk$set(echo = TRUE)
+# чтение файлов
+library(readxl)
+# весь tidyverse
+library(tidyverse)
+# оператор pipe
+library(magrittr)
+
+# интерактивная графика
+library(plotly)
+# интерактивные таблицы
+library(DT)
+# выделение основных данных в таблицах
+library(formattable)
+
+population <- read_xlsx("C:/Users/ТТТ/Dropbox/RGit/RStudy/Lesson 4/Population.xlsx")
+```
+
+# Как использовть R для формирования отчетов
+
+## Что такое R Markdown
+
+Для формирования отчетов можно использовать язык разметки **Markdown**, который, в совокупности с языком программирования **R**, служит основой документов **RMarkdown**. В качестве выходных форматов могут быть, например, HTML, PDF, MS Word, LaTeX-Beamer документы. Подробности об использовании **RMarkdown** можно посмотреть на <http://rmarkdown.rstudio.com>.
+
+## Использование графики
+
+```{r, echo = FALSE}
+population %>% 
+  plot_ly(., y = ~Население, color = ~ФО, type = "box")
+```
+
+
+## Пример включения интерактивных карт в отчет
+
+```{r, echo = FALSE}
+library(leaflet)
+
+leaflet() %>%
+  addTiles() %>%  # Add default OpenStreetMap map tiles
+  addMarkers(lng=93.544701, lat=56.266921, popup="Наша Академия!")
+```
+
+## Использование таблиц
+
+Пример с населением. 
+
+```{r, echo = FALSE}
+datatable(population)
+```
+
+Максимальная плотность городского населения составляет `r max(population$Городское/population$Площадь) %>% round(., 0)` человек на единицу площади.
+
+
+Рассмотрим только Сибирский федеральный округ.
+
+```{r, echo = FALSE, warning = FALSE}
+population %>%
+  filter(ФО == "СФО") %>%
+  select(-ФО) %>%
+  formattable(., list(
+      Население = color_tile("white", "#00BFFF"),
+      Сельское  = color_tile("white", "orange"),
+      Площадь  =  color_bar("pink")
+  ))
+```
+
