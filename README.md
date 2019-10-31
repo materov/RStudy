@@ -15,7 +15,7 @@
 7. [**Урок 7**](https://github.com/materov/RStudy/tree/master/Lesson%207) - Множественная линейная регрессия
 8. [**Урок 8**](https://github.com/materov/RStudy/tree/master/Lesson%208) - Временные ряды
 9. [**Урок 9**](https://github.com/materov/RStudy/tree/master/Lesson%209) - RMarkdown
-10. [**Урок 10**](https://github.com/materov/RStudy/tree/master/Lesson%210) - LaTeX
+10. [**Урок 10**](https://github.com/materov/RStudy/tree/master/Lesson%2010) - LaTeX
 
 # Примерная тематика рефератов
 
